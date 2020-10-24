@@ -1,0 +1,48 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "_MartinBlaščák",
+      "firstName": "Martin",
+      "lastName": "Blaščák",
+      "email": "martin.blascak86@gmail.com",
+      "isAdmin": true,
+      "twoots": [
+        {"id": 1, "content": "this.is.extreme.web"},
+        {"id": 2, "content": "this web sucks"},
+        {"id": 3, "content": "i need sleeeeeeeeep :/"}
+      ]
+    },
+    {
+      "id": 2,
+      "username": "_LuciaKováčová",
+      "firstName": "Lucka",
+      "lastName": "Kováčová",
+      "email": "lucia.kovacova86@gmail.com",
+      "isAdmin": false,
+      "twoots": [
+        {"id": 1, "content": "what?"},
+        {"id": 2, "content": "no...."},
+        {"id": 3, "content": "why ? anf how ?"}
+      ]
+    },
+    {
+      "id": 3,
+      "username": "_LukasKovac",
+      "firstName": "Lukáš",
+      "lastName": "Kováč",
+      "email": null,
+      "isAdmin": false,
+      "twoots": null
+    },
+    {
+      "id": 4,
+      "username": "_Emili",
+      "firstName": "Emilia",
+      "lastName": "Blaščáková",
+      "email": null,
+      "isAdmin": false,
+      "twoots": null
+    }
+  ]
+}
