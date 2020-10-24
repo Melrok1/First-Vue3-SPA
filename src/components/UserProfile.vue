@@ -4,29 +4,29 @@
 
       <!-- user information -->
       <div class="userProfile__informationWraper">
-        <h1 class="userProfile__userName">@{{ user.userName }}</h1>
-        <div class="userProfile__adminBadge" v-if="user.isAdmin">
+        <h1 class="userProfile__userName">@{{ stats.user.userName }}</h1>
+        <div class="userProfile__adminBadge" v-if="stats.user.isAdmin">
           <p>Admin</p>
         </div>
         <div class="userProfile__userBadge" v-else>
           <p>User</p>
         </div>
         <div class="userProfile__followerCount">
-          <strong>Followers:</strong> {{ followers }}
+          <strong>Followers:</strong> {{ stats.followers }}
         </div>
       </div>
 
       <!-- Add Tweet -->
-      <addTwootForm :twoots="this.user.twoots" @new-twoot-from="saveNewTwoot"/>
+      <addTwootForm :twoots="stats.user.twoots" @new-twoot-from="saveNewTwoot"/>
     </div>
 
     <!-- twootList -->
     <div class="userProfile__twootsWraper">
       <twootItem 
-        v-for="twoot in user.twoots.slice().reverse()" 
+        v-for="twoot in stats.user.twoots.slice().reverse()" 
         :key="twoot.id" 
         :twoot="twoot" 
-        :username="user.userName" 
+        :username="stats.user.userName" 
         @favorite="addToFavorite"
       />
     </div>
@@ -34,7 +34,11 @@
 </template>
 
 
+<!-- //////////////////////////////////////////////////////////////////////////////// -->
+
+
 <script>
+import {reactive, computed, onMounted} from 'vue'
 import twootItem from '@/components/TwootItem.vue'
 import addTwootForm from '@/components/AddTwootForm.vue'
 
@@ -43,8 +47,9 @@ export default {
   components: {
     twootItem,addTwootForm
   },
-  data() {
-    return {
+  setup() {
+    // STATS - data
+    const stats = reactive({
       followers: 0,
       user: {
         id: 1,
@@ -59,42 +64,58 @@ export default {
           { id: 3, content: 'i need sleeeeeeeeep :/'}
         ]
       }
+    })
+
+    // COMPUTED - fullName
+    const fullName = computed(() => {
+      return `${stats.user.firstName} ${stats.user.lastName}`;
+    })
+
+    // METHODS - 
+    function followUser() {
+      stats.followers++;
+      console.log('onMounted is rdy ?')
+    }
+
+    function addToFavorite(id) {
+      console.log(`Favorite tweet is: ${id}`);
+    }
+
+    function saveNewTwoot(newTwoot) {
+      stats.user.twoots.push(newTwoot);
+    }
+
+    // HOOKS
+    onMounted(() => {
+      followUser();
+    })
+
+    // WATCH
+
+    // RETURN
+    return {
+      stats,
+      fullName,
+      followUser,
+      addToFavorite,
+      saveNewTwoot,
     }
   },
-  watch: {
-    followers(newFollowerCount, oldFollowerCount) {
-      if(oldFollowerCount < newFollowerCount) {
-        console.log(`${this.fullName} has a new follover`);
-      }
-    }
-  },
-  computed: {
-    fullName() {
-      return `${this.user.firstName} ${this.user.lastName}`;
-    }
-  },
-  methods: {
-    followUser() {
-      this.followers++;
-    },
-    addToFavorite(id) {
-      console.log(`Favorite tweet is: ${id}`)
-    },
-    saveNewTwoot(newTwoot) {
-      this.user.twoots.push(newTwoot);
-    }
-  },
-  mounted() {
-    this.followUser();
-  }
+  // watch: {
+  //   followers(newFollowerCount, oldFollowerCount) {
+  //     if(oldFollowerCount < newFollowerCount) {
+  //       console.log(`${stats.fullName} has a new follover`);
+  //     }
+  //   }
+  // }
 }
 </script>
 
 
+<!-- //////////////////////////////////////////////////////////////////////////////// -->
 
-<!--**************** CSS ***************** -->
+
 <style lang="scss" scoped>
-
 .userProfile {
   display: flex;
   flex-direction: row;
@@ -154,5 +175,4 @@ export default {
     }
   }
 }
-
 </style>

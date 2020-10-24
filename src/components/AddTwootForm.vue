@@ -18,6 +18,9 @@
 </template>
 
 
+<!-- //////////////////////////////////////////////////////////////////////////////// -->
+
+
 <script>
 import {reactive, computed} from 'vue'
 
@@ -82,8 +85,10 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<!-- //////////////////////////////////////////////////////////////////////////////// -->
 
+
+<style lang="scss" scoped>
 .addTwootForm {
   .userProfile__createTwoot {
     margin: 1.5rem auto 0 auto;

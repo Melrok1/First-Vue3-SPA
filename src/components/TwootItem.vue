@@ -5,6 +5,10 @@
   </div>
 </template>
 
+
+<!-- //////////////////////////////////////////////////////////////////////////////// -->
+
+
 <script>
 export default {
   name: 'SingleTwoot',
@@ -18,17 +22,24 @@ export default {
       required: true
     }
   },
-  methods: {
-    addToFavorite(id) {
-      this.$emit('favorite',id)
+  setup(props, ctx) {
+    // METHODS - addToFavorite
+    function addToFavorite(id) {
+      ctx.emit('favorite',id)
+    }
+
+    return {
+      addToFavorite
     }
   }
 }
 </script>
 
 
-<style lang="scss" scoped>
+<!-- //////////////////////////////////////////////////////////////////////////////// -->
 
+
+<style lang="scss" scoped>
 #app .singleTwoot {
   background: #fff;
   margin: 0.8rem 0.5rem;
@@ -56,6 +67,5 @@ export default {
 #app .singleTwoot:first-of-type {
   margin-top: 0;
 }
-
 </style>
 
