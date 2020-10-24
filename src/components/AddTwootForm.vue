@@ -2,12 +2,12 @@
   <div class="addTwootForm">
     <form class="userProfile__createTwoot" @submit.prevent="createNewTwoot" :class="{'__overloadTxtArea': twootLength > 180}">
       <label for="newTwoot">New twoot <span>({{ twootLength }}/180)</span></label>
-      <textarea name="newTwoot" cols="30" rows="4" v-model="newTwoot"></textarea>
+      <textarea name="newTwoot" cols="30" rows="4" v-model="state.newTwoot"></textarea>
       <label for="select">select class:</label>
-      <select name="select" v-model="selectedTwootClass">
+      <select name="select" v-model="state.selectedTwootClass">
         <option 
         :value="option.value" 
-        v-for="(option, index) in twootClass" 
+        v-for="(option, index) in state.twootClass" 
         :key="index">
           {{ option.name }}
         </option>
@@ -19,6 +19,8 @@
 
 
 <script>
+import {reactive, computed} from 'vue'
+
 export default {
   name: 'AddTwootForm',
   props: {
@@ -26,8 +28,10 @@ export default {
       type: Array
     } 
   },
-  data() {
-    return {
+  setup(props, ctx) {
+
+    // STATE (data)
+    const state = reactive({
       newTwoot: null,
       selectedTwootClass: null,
       twootClass: [
@@ -38,35 +42,41 @@ export default {
         {value: 'nefrologia', name: 'Nefrológia'},
         {value: 'alergologia', name: 'Alergológia'},
         {value: 'hematologia', name: 'Hematológia'},                
-      ],
-    }
-  },
-  methods: {
-    createNewTwoot() {
+      ]
+    });
+
+    // COMPUTED - text area length
+    const twootLength = computed(() => {
+      if(state.newTwoot) {
+        return state.newTwoot.length;
+      }else {
+        return 0;
+      }
+    });
+
+    // METHODS - create new twoot
+    function createNewTwoot() {
       let twootObject;
-      if(this.newTwoot) {
+      if(state.newTwoot) {
         twootObject = {
-          id: this.twoots.length + 1,
-          content: this.newTwoot,
-          class: this.selectedTwootClass
+          id: props.twoots.length + 1,
+          content: state.newTwoot,
+          class: state.selectedTwootClass
         };
         console.log(twootObject);
-        // this.user.twoots.push(twootObject);
-        this.$emit('new-twoot-from', twootObject);
-        this.newTwoot = null;
+        ctx.emit('new-twoot-from', twootObject);
+        state.newTwoot = null;
       }else {
         console.log('Err in created object !');
       }
     }
-  },
-  computed: {
-    twootLength() {
-      if(this.newTwoot) {
-        return this.newTwoot.length;
-      }else {
-        return 0;
-      }
-    },
+
+    // RETURN 
+    return {
+      state,
+      twootLength,
+      createNewTwoot
+    }
   }
 }
 </script>
