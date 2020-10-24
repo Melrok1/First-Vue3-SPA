@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import userProfile from '@/components/UserProfile.vue'
+import userProfile from '@/views/UserProfile.vue'
 import mainNav from '@/components/MainNav.vue'
 
 export default {
