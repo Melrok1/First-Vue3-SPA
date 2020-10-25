@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// import {users} from '@/assets/users.js'
+import store from '@/store'
 import Home from '../views/Home.vue'
 import UserProfile from '@/views/UserProfile.vue'
 import AdminPage from '@/views/Admin.vue'
@@ -30,6 +32,12 @@ const router = createRouter({
 })
 
 router.beforeEach(async(to, from, next) => {
+  const user = store.state.user;
+
+  if(!user) {
+    await store.dispatch('setUser', {userName: '@_?'});
+  }
+
   const isAdmin = false;
   const requiresAdmin = to.matched.some(record => record.meta.requiresAdmin);
 

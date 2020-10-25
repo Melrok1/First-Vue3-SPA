@@ -3,15 +3,33 @@
     <router-link to="/" class="mainNav__logo">
       <h1>TWOOTER!</h1>
     </router-link>
-    <section class="mainNav__userName">
-      <p>USERBANE</p>
+    <section class="mainNav__userName" v-if="user">
+      <p>@{{ user.userName }}</p>
     </section>
   </div>
 </template>
 
 <script>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+
 export default {
-  name: 'MainNab'
+  name: 'MainNab',
+  setup() {
+    const store = useStore();
+    const user = computed(() => store.state.user)
+
+    // const state = reactive ({
+    //   user: {
+    //     username: '?'
+    //   }
+    // })
+
+    return {
+      user,
+      // state
+    }
+  }
 }
 </script>
 

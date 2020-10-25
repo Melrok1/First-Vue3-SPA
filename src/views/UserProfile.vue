@@ -39,9 +39,10 @@
 
 
 <script>
-import {reactive, computed, onMounted} from 'vue'
+import {reactive, computed, onMounted, onUnmounted} from 'vue'
 import {useRoute} from 'vue-router'
 import {users} from '@/assets/users.js'
+import store from '@/store'
 import twootItem from '@/components/TwootItem.vue'
 import addTwootForm from '@/components/AddTwootForm.vue'
 
@@ -88,7 +89,11 @@ export default {
     // HOOKS
     onMounted(() => {
       followUser();
+      store.dispatch('setUser', stats.user);
       // console.log(users)
+    }),
+    onUnmounted(() => {
+      store.dispatch('setUser', null);
     })
 
     // WATCH
