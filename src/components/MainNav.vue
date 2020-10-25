@@ -1,8 +1,8 @@
 <template>
   <div class="mainNav">
-    <section class="mainNav__logo">
+    <router-link to="/" class="mainNav__logo">
       <h1>TWOOTER!</h1>
-    </section>
+    </router-link>
     <section class="mainNav__userName">
       <p>USERBANE</p>
     </section>
@@ -27,6 +27,11 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0 3.5rem;
+
+  .mainNav__logo {
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 </style>

@@ -1,8 +1,7 @@
-{
-  "users": [
+export const users = [
     {
       "id": 1,
-      "username": "_MartinBlaščák",
+      "userName": "_MartinBlaščák",
       "firstName": "Martin",
       "lastName": "Blaščák",
       "email": "martin.blascak86@gmail.com",
@@ -15,11 +14,11 @@
     },
     {
       "id": 2,
-      "username": "_LuciaKováčová",
+      "userName": "_LuciaKováčová",
       "firstName": "Lucka",
       "lastName": "Kováčová",
       "email": "lucia.kovacova86@gmail.com",
-      "isAdmin": false,
+      "isAdmin": true,
       "twoots": [
         {"id": 1, "content": "what?"},
         {"id": 2, "content": "no...."},
@@ -28,21 +27,44 @@
     },
     {
       "id": 3,
-      "username": "_LukasKovac",
+      "userName": "_LukasKovac",
       "firstName": "Lukáš",
       "lastName": "Kováč",
       "email": null,
       "isAdmin": false,
-      "twoots": null
+      "twoots": []
     },
     {
       "id": 4,
-      "username": "_Emili",
+      "userName": "_EmiliaBlaščáková",
       "firstName": "Emilia",
       "lastName": "Blaščáková",
       "email": null,
       "isAdmin": false,
-      "twoots": null
-    }
-  ]
-}
+      "twoots": []
+    },
+    {
+      "id": 5,
+      "userName": "_NiektoZaujímavý",
+      "firstName": "Niekto",
+      "lastName": "Zaujímay",
+      "email": null,
+      "isAdmin": false,
+      "twoots": [
+        {"id": 1, "content": "správa jedna"},
+        {"id": 2, "content": "správa dva"},
+        {"id": 3, "content": "správa tri"}
+      ]
+    },
+    {
+      "id": 6,
+      "userName": "_Pikaču",
+      "firstName": "Pikaču",
+      "lastName": "Žltý",
+      "email": null,
+      "isAdmin": false,
+      "twoots": [
+        {"id": 1, "content": "pika pika"}
+      ]
+    },
+  ];

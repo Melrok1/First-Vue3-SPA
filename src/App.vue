@@ -1,18 +1,17 @@
 <template>
   <div id="app">
     <mainNav />
-    <userProfile />
+    <router-view />
   </div>
 </template>
 
 <script>
-import userProfile from '@/views/UserProfile.vue'
 import mainNav from '@/components/MainNav.vue'
 
 export default {
   name: 'App',
   components: {
-    userProfile,mainNav
+    mainNav
   },
   data() {
     return {

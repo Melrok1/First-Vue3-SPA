@@ -62,7 +62,7 @@ export default {
       let twootObject;
       if(state.newTwoot) {
         twootObject = {
-          id: props.twoots.length + 1,
+          id: props.twoots ? props.twoots.length + 1 : 0,
           content: state.newTwoot,
           class: state.selectedTwootClass
         };

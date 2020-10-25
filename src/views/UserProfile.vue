@@ -12,7 +12,8 @@
           <p>User</p>
         </div>
         <div class="userProfile__followerCount">
-          <strong>Followers:</strong> {{ stats.followers }}
+          <p><strong>Followers:</strong> {{ stats.followers }}</p>
+          <p><strong> User ID:</strong> {{ userId }}</p>
         </div>
       </div>
 
@@ -23,7 +24,7 @@
     <!-- twootList -->
     <div class="userProfile__twootsWraper">
       <twootItem 
-        v-for="twoot in stats.user.twoots.slice().reverse()" 
+        v-for="twoot in stats.user.twoots" 
         :key="twoot.id" 
         :twoot="twoot" 
         :username="stats.user.userName" 
@@ -39,6 +40,8 @@
 
 <script>
 import {reactive, computed, onMounted} from 'vue'
+import {useRoute} from 'vue-router'
+import {users} from '@/assets/users.js'
 import twootItem from '@/components/TwootItem.vue'
 import addTwootForm from '@/components/AddTwootForm.vue'
 
@@ -48,23 +51,16 @@ export default {
     twootItem,addTwootForm
   },
   setup() {
+    // userID from route
+    const route = useRoute(); 
+    const userId = computed(() => route.params.userId)
+    
     // STATS - data
     const stats = reactive({
       followers: 0,
-      user: {
-        id: 1,
-        userName: '_MartinBlaščák',
-        firstName: 'Martin',
-        lastName: 'Blaščák',
-        email: 'martin.blascak86@gmail.com',
-        isAdmin: true,
-        twoots: [
-          { id: 1, content: 'this.is.extreme.web'},
-          { id: 2, content: 'this web sucks'},
-          { id: 3, content: 'i need sleeeeeeeeep :/'}
-        ]
-      }
+      user: users[userId.value - 1]
     })
+
 
     // COMPUTED - fullName
     const fullName = computed(() => {
@@ -82,12 +78,17 @@ export default {
     }
 
     function saveNewTwoot(newTwoot) {
-      stats.user.twoots.push(newTwoot);
+      if(newTwoot) {
+        stats.user.twoots.push(newTwoot);
+      }else {
+        console.log('Push ERR')
+      }
     }
 
     // HOOKS
     onMounted(() => {
       followUser();
+      // console.log(users)
     })
 
     // WATCH
@@ -99,6 +100,7 @@ export default {
       followUser,
       addToFavorite,
       saveNewTwoot,
+      userId
     }
   },
   // watch: {
